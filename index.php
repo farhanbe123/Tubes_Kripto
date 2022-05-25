@@ -76,7 +76,7 @@ function bin2asc($bin)
 	// argument MUST be sent as string
 	return chr(bindec($bin));
 }
-ini contoh error
+
 function rgb2bin($rgb)
 {
 	// returns binary from rgb value (according to evenness)
