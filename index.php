@@ -75,6 +75,7 @@ function bin2asc($bin)
 	// eg; bin2asc("01100001") returns a
 	// argument MUST be sent as string
 	return chr(bindec($bin));
+	tulis contoh doang
 }
 
 function rgb2bin($rgb)
