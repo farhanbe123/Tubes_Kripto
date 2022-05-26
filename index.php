@@ -348,7 +348,7 @@ if(!empty($_POST['secret']))
 	<meta property='og:image' content='http://security.cs.umass.edu/cyber-biglock.jpg' />
 	<meta property='og:description' content='APLIKASI STEGANOGRAFI METODE LEAST SIGNIFICANT BIT (LSB) DENGAN KOMBINASI ALGORITMA KRIPTOGRAFI RC4 DAN BASE 64 BERBASIS PHP' />
 	<meta property='og:url' content='https://kodein.id/demo/kripto-stegano' />
-  <title>Kripto Stegano</title>
+  <title>RC4 Encryption</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -437,7 +437,7 @@ if(!empty($_FILES['gambar']['tmp_name'])) {
 					<!-- /.col -->
 				  </div>
 				</form>
-				<img class="img" src="Activity_Deskripsi.png" width="100%" align=center />
+				<!-- <img class="img" src="Activity_Deskripsi.png" width="100%" align=center /> -->
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane active" id="tab_2">  
