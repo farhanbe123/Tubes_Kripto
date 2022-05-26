@@ -1,6 +1,6 @@
 <?php
 function rc4( $key_str, $data_str ) {
-      // convert input string(s) to array(s)
+      // melakukan konversi input string(s) ke array(s)
       $key = array();
       $data = array();
       for ( $i = 0; $i < strlen($key_str); $i++ ) {
@@ -9,7 +9,7 @@ function rc4( $key_str, $data_str ) {
       for ( $i = 0; $i < strlen($data_str); $i++ ) {
          $data[] = ord($data_str[$i]);
       }
-     // prepare key
+     // persiapan kunci(key)
       $state = array( 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,
                       16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,
                       32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,
@@ -35,7 +35,7 @@ function rc4( $key_str, $data_str ) {
          $state[$index2] = $tmp;
          $index1 = ($index1 + 1) % $len;
       }
-      // rc4
+      // proses rc4
       $len = count($data);
       $x = $y = 0;
       for ($counter = 0; $counter < $len; $counter++) {
@@ -46,7 +46,7 @@ function rc4( $key_str, $data_str ) {
          $state[$y] = $tmp;
          $data[$counter] ^= $state[($state[$x] + $state[$y]) % 256];
       }
-      // convert output back to a string
+      // konversi output kembali ke string
       $data_str = "";
       for ( $i = 0; $i < $len; $i++ ) {
          $data_str .= chr($data[$i]);
@@ -58,31 +58,25 @@ ini_set("max_execution_time",10000);
 
 function is_even($num)
 {
-	// returns true if $num is even, false if not
+	// melakukan return true jika $num bernilai genap, false jika tidak
 	return ($num%2==0);
 }
 
 function asc2bin($char)
 {
-	// returns 8bit binary value from ASCII char
-	// eg; asc2bin("a") returns 01100001
+	// melakukan returns 8bit binary value dari ASCII char
 	return str_pad(decbin(ord($char)), 8, "0", STR_PAD_LEFT);
 }
 
 function bin2asc($bin)
 {
-	// returns ASCII char from 8bit binary value
-	// eg; bin2asc("01100001") returns a
-	// argument MUST be sent as string
+	// melakukan returns ASCII char dari 8bit binary value
 	return chr(bindec($bin));
 }
 
 function rgb2bin($rgb)
 {
-	// returns binary from rgb value (according to evenness)
-	// this way, we can store one ascii char in 2.6 pixels
-	// not a great ratio, but it works (albeit slowly)
-
+	// melakukan returns binary from rgb value
 	$binstream = "";
 	$red = ($rgb >> 16) & 0xFF;
 	$green = ($rgb >> 8) & 0xFF;
@@ -112,14 +106,14 @@ function rgb2bin($rgb)
 
 function steg_hide($maskfile, $hidefile)
 {
-	// hides $hidefile in $maskfile
+	// melakukan penyembunyian $hidefile didalam $maskfile
 
-	// initialise some vars
+	// inisiasi variabel
 	$binstream = "";
 	$recordstream = "";
 	$make_odd = Array();
 
-	// create images
+	// membuat img baru
 	$pic = ImageCreateFromJPEG($maskfile['tmp_name']);
 	$attributes = getImageSize($maskfile['tmp_name']);
 	$outpic = ImageCreateFromJPEG($maskfile['tmp_name']);
@@ -369,15 +363,10 @@ if(!empty($_POST['secret']))
   
 
 </head>
-<body class="hold-transition login-page">
-<!-- <div class="col-xs-12" style="margin-bottom:20px;"> -->
-<!-- <h3 align=center>APLIKASI STEGANOGRAFI METODE LEAST SIGNIFICANT BIT (LSB) </BR>DENGAN KOMBINASI ALGORITMA KRIPTOGRAFI RC4 DAN BASE 64 </BR> BERBASIS PHP</h3> -->
-<!-- </div> -->
-<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3" style="background:white; margin-bottom:50px;">
+<body class="hold-transition login-page" style="background:#80FFD0">
+<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3" style="background:#FF4000; margin-top:50px; margin-bottom:50px;">
   
-  <!-- /.login-logo -->
   <div class="login-box-body">
-	<!-- <h2 align=center  style="margin-bottom:20px"> <i class="fa fa-shield"></i> &nbsp Kodein Data Security </h2> -->
 	<div class="nav-tabs-custom">
 		<?php
 if(!empty($_FILES['gambar']['tmp_name'])) {
@@ -392,7 +381,7 @@ if(!empty($_FILES['gambar']['tmp_name'])) {
 	echo "
 		<table border=0 class='table table-bordered' style='font-size:large'>
 			<tr>
-				<td align=right><b>Chipertext Base64:</b></td>
+				<td align=right><b>Chipertext:</b></td>
 				<td align=left><textarea class='form-control'>$result</textarea></td>
 			</tr>
 			<tr>
@@ -400,12 +389,8 @@ if(!empty($_FILES['gambar']['tmp_name'])) {
 				<td align=left>$key</td>
 			</tr>
 			<tr>
-				<td align=right><b>Chipertext RC4:</b></td>
-				<td align=left><textarea class='form-control'>$base64</textarea></td>
-			</tr>			
-			<tr>
 				<td align=right><b>Plaintext:</b></td>
-				<td align=left><font color='red'>$plaintext</font></td>
+				<td align=left><font>$plaintext</font></td>
 			</tr>
 		</table>
 	";
@@ -414,14 +399,14 @@ if(!empty($_FILES['gambar']['tmp_name'])) {
 ?>
         <ul class="nav nav-tabs pull-right">
             <li ><a href="#tab_1" class="btn btn-app" data-toggle="tab" ><i class="fa fa-unlock"></i> Deskripsi</a> </li>
-            <li class="active"><a href="#tab_2" class="btn btn-app" data-toggle="tab" ><i class="fa fa-lock"></i> Enskripsi</a></li>
+            <li class="active"><a href="#tab_2" class="btn btn-app" data-toggle="tab" ><i class="fa fa-lock"></i> Enkripsi</a></li>
         </ul>
             <div class="tab-content">
               <div class="tab-pane" id="tab_1">
-				<h2 align=center>Deskripsi</h2>
+				<h2 align=center>Proses Deskripsi Gambar</h2>
                 <form action="<?php $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
 				  <div class="form-group has-feedback">
-					<input type="text" name="key_deskripsi" id="key_deskripsi" class="form-control" placeholder="Masukan Kunci Rahasia" required>
+					<input type="text" name="key_deskripsi" id="key_deskripsi" class="form-control" placeholder="Masukan Key" required>
 					<span class="fa fa-key form-control-feedback"></span> 
 				  </div>
 				  <label>Gambar pembawa pesan (jpeg): </label>
@@ -430,80 +415,40 @@ if(!empty($_FILES['gambar']['tmp_name'])) {
 					<input type="file" class="form-control" accept="image/*" name="gambar" id="gambar" required>
 				  </div>
 				  <div class="row">
-					<!-- /.col -->
 					<div class="col-xs-12">
 					  <button type="submit" class="btn btn-primary btn-flat pull-right" >Decrypt Now &nbsp <i class="fa fa-check"></i></button>
 					</div>
-					<!-- /.col -->
 				  </div>
 				</form>
-				<!-- <img class="img" src="Activity_Deskripsi.png" width="100%" align=center /> -->
               </div>
-              <!-- /.tab-pane -->
               <div class="tab-pane active" id="tab_2">  
-				<h2 align=center>Enskripsi</h2>
+				<h2 align=center>Proses Enkripsi Gambar</h2>
 				<form id="form_stegano" action="<?php $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
 				  <div class="form-group has-feedback">
-					<input type="text" id="key_enskripsi" name="key" class="form-control" placeholder="Masukan Kunci Rahasia">
+					<input type="text" id="key_enskripsi" name="key" class="form-control" placeholder="Masukan Key">
 					<span class="fa fa-key form-control-feedback"></span>
 				  </div>
 				  <div class="form-group has-feedback">
-					<textarea id="secret" name="secret" class="form-control" rows=3 placeholder="Masukan Pesan Rahasia" required></textarea>
+					<textarea id="secret" name="secret" class="form-control" rows=3 placeholder="Masukan Plaintext" required></textarea>
 					<span class="fa fa-file-text-o form-control-feedback"></span>
 				  </div>
 				  <label>Gambar pembawa pesan (jpg): </label>
 				  <div class="input-group" style="margin-bottom:30px">
 					<span class="input-group-addon"><i class="fa fa-image"></i></span>
-				<!--<input type="file" class="form-control" accept="image/jpeg" name="maskfile" id="maskfile" required>-->
 					<input type="file" class="form-control" accept="image/jpeg" name="maskfile" required>
 				  </div>
 				  <div class="row">
-					<!-- /.col -->
 					<div class="col-xs-12">
 					  <button type="submit" class="btn btn-primary btn-flat pull-right" >Encrypt Now &nbsp <i class="fa fa-check"></i></button>
 					</div>
-					<!-- /.col -->
 				  </div>
 				</form>
-				<!-- <img class="img" src="Activity_enskripsi.png" width="100%" align=center /> -->
               </div>
-              <!-- /.tab-pane -->
             </div>
-            <!-- /.tab-content -->
 
     </div>	
   </div>
-  <!-- /.login-box-body -->	
-	<!-- <div class="col-xs-6 col-md-4" style="margin-bottom:20px;" align=center>
-		<a href="https://id.wikipedia.org/wiki/Steganografi" target="_blank" class="btn btn-success btn-block btn-flat">STEGANOGRAFI ?</a> 
-	</div>
-	
-	<div class="col-xs-6  col-md-4" style="margin-bottom:20px;" align=center>
-		<a href="https://id.wikipedia.org/wiki/Kriptografi" target="_blank" class="btn btn-success btn-block btn-flat">KRIPTOGRAFI ?</a>
-	</div>
-	
-	<div class="col-xs-6  col-md-4" style="margin-bottom:20px;" align=center>
-		<a href="https://id.wikipedia.org/wiki/Steganografi#Least_Significant_Bit_Insertion_.28LSB.29" target="_blank" class="btn btn-success btn-block btn-flat">STEGANO LSB ?</a>
-	</div>
-	
-	<div class="col-xs-6  col-md-4" style="margin-bottom:20px;" align=center> 
-		<a href="https://en.wikipedia.org/wiki/RC4" target="_blank" class="btn btn-success btn-flat btn-block">KRIPTO RC4 ?</a>
-	</div>
-	
-	<div class="col-xs-6 col-md-4" style="margin-bottom:20px;" align=center> 
-		<a href="https://en.wikipedia.org/wiki/Base64" target="_blank" class="btn btn-success btn-flat btn-block">KRIPTO BASE 64 ?</a>
-	</div>
-	
-	<div class="col-xs-12" style="margin-bottom:20px;">
-		<p align=justify> Aplikasi ini tidak terhubung ke database, semua gambar dan informasi rahasia yang dimasukan tidak disimpan di server. </p>
-		<div class="pull-right">
-			<b>Version</b> 1.0
-		</div>
-		<strong>Copyright © 2016 All rights reserved.</strong>
-	</div> -->
-	
 </div>
-<!-- /.login-box -->
 <!-- jQuery 2.2.3 -->
 <script src="js/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
