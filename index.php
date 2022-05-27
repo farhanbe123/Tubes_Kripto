@@ -358,7 +358,7 @@ if(!empty($_POST['secret']))
 		// enskripsi base64
 		$base64=base64_encode($ciphertextRC4);
 
-		$chipertextaes = aesenkrip($key, $plaintext);
+		$chipertextaes = aesenkrip($key, $base64);
 
 		steg_hide($_FILES['maskfile'],$chipertextaes);
 	} 
