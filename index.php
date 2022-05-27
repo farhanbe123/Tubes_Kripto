@@ -420,7 +420,7 @@ if(!empty($_FILES['gambar']['tmp_name'])) {
 	echo "
 		<table border=0 class='table table-bordered' style='font-size:large'>
 			<tr>
-				<td align=right><b>Chipertext AES64:</b></td>
+				<td align=right><b>Chipertext AES:</b></td>
 				<td align=left><textarea class='form-control'>$result</textarea></td>
 			</tr>
 			<tr>
