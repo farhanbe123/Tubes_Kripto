@@ -319,7 +319,7 @@ function aesenkrip($key, $teks)
 	$cipher = "aes-256-cbc";
 	$encryption_key = $key;
 
-	$iv_size = openssl_chiper_iv_length($cipher);
+	$iv_size = openssl_cipher_iv_length($cipher);
 	$iv = openssl_random_pseudo_bytes($iv_size);
 
 	$data_aes = $teks;
@@ -332,6 +332,12 @@ function aesenkrip($key, $teks)
 function aesdekrip($key, $teks)
 {
 	$cipher = "aes-256-cbc";
+	$encryption_key = $key;
+	$encrypted_data=$teks;
+
+	$iv_size = openssl_cipher_iv_length($cipher);
+	$iv = openssl_random_pseudo_bytes($iv_size);
+
 	$decrypted_data = openssl_decrypt($encrypted_data, $cipher, $encryption_key, 0, $iv);
 	return $decrypted_data;
 
@@ -408,13 +414,13 @@ if(!empty($_POST['secret']))
 		<?php
 if(!empty($_FILES['gambar']['tmp_name'])) {
 	$result = steg_recover($_FILES['gambar']);
-	$aesdecode=aesdekrip($key, $result);
 	
 	// decode base 64
-	$base64=base64_decode($aesdecode);
 	
 	// decode RC4
 	$key = $_POST['key_deskripsi'];
+	$aesdecode=aesdekrip($key, $result);
+	$base64=base64_decode($aesdecode);
 	$plaintext = rc4( $key, $base64 );
 	
 	
