@@ -65,24 +65,18 @@ function is_even($num)
 function asc2bin($char)
 {
 	// returns 8bit binary value from ASCII char
-	// eg; asc2bin("a") returns 01100001
 	return str_pad(decbin(ord($char)), 8, "0", STR_PAD_LEFT);
 }
 
 function bin2asc($bin)
 {
 	// returns ASCII char from 8bit binary value
-	// eg; bin2asc("01100001") returns a
-	// argument MUST be sent as string
 	return chr(bindec($bin));
 }
 
 function rgb2bin($rgb)
 {
 	// returns binary from rgb value (according to evenness)
-	// this way, we can store one ascii char in 2.6 pixels
-	// not a great ratio, but it works (albeit slowly)
-
 	$binstream = "";
 	$red = ($rgb >> 16) & 0xFF;
 	$green = ($rgb >> 8) & 0xFF;
@@ -134,11 +128,6 @@ function steg_hide($maskfile, $hidefile)
 	$data = $hidefile;
 
 	// generate unique boundary that does not occur in $data
-	// 1 in 16581375 chance of a file containing all possible 3 ASCII char sequences
-	// 1 in every ~1.65 billion files will not be steganographisable by this script
-	// though my maths might be wrong.
-	// if you really want to get silly, add another 3 random chars. (1 in 274941996890625)
-	// ^^^^^^^^^^^^ would require appropriate modification to decoder.
 	$boundary="";
 	do
 	{
@@ -147,9 +136,6 @@ function steg_hide($maskfile, $hidefile)
 
 	// add boundary to data
 	$data = $boundary.'rahasia.txt'.$boundary.$data.$boundary;
-	// you could add all sorts of other info here (eg IP of encoder, date/time encoded, etc, etc)
-	// decoder reads first boundary, then carries on reading until boundary encountered again
-	// saves that as filename, and carries on again until final boundary reached
 
 	// check that $data will fit in maskfile
 	if(strlen($data)*8 > ($attributes[0]*$attributes[1])*3)
@@ -308,9 +294,6 @@ function steg_recover($gambar)
 	// remove image from memory
 	ImageDestroy($pic);
 
-	/* and output result (retaining original filename)
-	header("Content-type: text/plain");
-	header("Content-Disposition: attachment; filename=".$filename);*/
 	return $ascii;
 }
 
@@ -353,9 +336,6 @@ if(!empty($_POST['secret']))
 		$key = $_POST['key'];
 		$plaintext = $_POST['secret'];;
 		$ciphertextRC4 = rc4( $key, $plaintext );
-		//$decrypted = rc4( $key, $ciphertext );
-	   
-		// enskripsi base64
 		$base64=base64_encode($ciphertextRC4);
 
 		$chipertextaes = aesenkrip($key, $base64);
@@ -409,9 +389,6 @@ if(!empty($_POST['secret']))
 		<?php
 if(!empty($_FILES['gambar']['tmp_name'])) {
 	$result = steg_recover($_FILES['gambar']);
-	// decode base 64
-	
-	// decode RC4
 	$key = $_POST['key_deskripsi'];
 	$aesdecode=aesdekrip($key, $result);
 	$base64=base64_decode($aesdecode);
