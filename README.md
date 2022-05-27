@@ -8,6 +8,6 @@ How to run :
 5.  Untuk melakukan dekripsi file, silahkan pindah ke tab Dekripsi lalu masukkan key dan file yang sudah disisipkan pesan
 
 Team Pengembang
-1. Clarisa Tri Handayani (119140108)
+1. Clarisa Tri Handayani (119140143)
 2. Desi Togi Sintauli Tambunan (119140073)
 3. Muhammad Farhan (119140108)
