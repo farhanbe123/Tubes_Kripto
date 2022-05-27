@@ -1,8 +1,13 @@
-# steganografi-kriptografi
-This program can encrypt secret messages using a combination of RC4 and base 64 cryptographic algorithms then insert them into image files using the Least Significant Bit (LSB) method. by combining both cryptographic and steganographic methods, providing multiple security. Encryption will convert a secret message (plaintext) into an unreadable random message (ciphertext) then inserted into the pixel image with the steganography method (Least significant Bit).
+# TUGAS BESAR KRIPTOGRAFI
 
-Demo  : https://kodein.id/demo/kripto-stegano/
+How to run :
+1.  Download source code ini melalui clone dari "https://github.com/farhanbe123/Tubes_Kripto" atau file zip dan letakkan di path C:\xampp\htdocs (bisa berbeda tergantung lokasi system)
+2.  Buka XAMPP dan run Apache dan MySQL
+3.  Buka browser apapun dan masukkan url "http://localhost/Tubes_Kripto/index.php"
+4.  Lakukan input key, plaintext, dan gambar yang dipakai untuk penyisipan
+5.  Untuk melakukan dekripsi file, silahkan pindah ke tab Dekripsi lalu masukkan key dan file yang sudah disisipkan pesan
 
-Paper : https://drive.google.com/file/d/0B0llvUzuVL5rcUpmd0dnREhUX1U/view?usp=sharing
-
-Email : hi@kodein.id
+Team Pengembang
+1. Clarisa Tri Handayani (119140108)
+2. Desi Togi Sintauli Tambunan (119140073)
+3. Muhammad Farhan (119140108)
