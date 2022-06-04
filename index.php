@@ -297,35 +297,6 @@ function steg_recover($gambar)
 	return $ascii;
 }
 
-function aesenkrip($key, $teks)
-{
-	$cipher = "aes-256-cbc";
-	$encryption_key = $key;
-
-	$iv_size = openssl_cipher_iv_length($cipher);
-	$iv = "8746376827619797";
-
-	$data_aes = $teks;
-	$encrypted_data = openssl_encrypt($data_aes, $cipher, $encryption_key, 0, $iv);
-
-	return $encrypted_data;
-
-}
-
-function aesdekrip($key, $result)
-{
-	$cipher = "aes-256-cbc";
-	$encryption_key = $key;
-	$encrypted_data=$result;
-
-	$iv_size = openssl_cipher_iv_length($cipher);
-	$iv = "8746376827619797";
-
-	$decrypted_data = openssl_decrypt($encrypted_data, $cipher, $encryption_key, 0, $iv);
-	return $decrypted_data;
-
-}
-
 if(!empty($_POST['secret']))
 {
 	// ensure a readable mask file has been sent
@@ -336,11 +307,11 @@ if(!empty($_POST['secret']))
 		$key = $_POST['key'];
 		$plaintext = $_POST['secret'];;
 		$ciphertextRC4 = rc4( $key, $plaintext );
-		$base64=base64_encode($ciphertextRC4);
-
-		$chipertextaes = aesenkrip($key, $base64);
-
-		steg_hide($_FILES['maskfile'],$chipertextaes);
+		//$decrypted = rc4( $key, $ciphertext );
+	   
+		// enskripsi base64
+		$base64=base64_encode($ciphertextRC4);		
+		steg_hide($_FILES['maskfile'],$base64);
 	} 
 	else 
 	{
@@ -348,7 +319,7 @@ if(!empty($_POST['secret']))
 		echo $result;
 	}
 	
-} 
+}  
 
 ?>
 <html>
@@ -389,16 +360,18 @@ if(!empty($_POST['secret']))
 		<?php
 if(!empty($_FILES['gambar']['tmp_name'])) {
 	$result = steg_recover($_FILES['gambar']);
+	// decode base 64
+	$base64=base64_decode($result);
+	
+	// decode RC4
 	$key = $_POST['key_deskripsi'];
-	$aesdecode=aesdekrip($key, $result);
-	$base64=base64_decode($aesdecode);
 	$plaintext = rc4( $key, $base64 );
 	
 	echo "
 		<table border=0 class='table table-bordered' style='font-size:large'>
 			<tr>
 				<td align=right><b>Chipertext AES:</b></td>
-				<td align=left><textarea class='form-control'>$result</textarea></td>
+				<td align=left><textarea class='form-control'>--</textarea></td>
 			</tr>
 			<tr>
 				<td align=right><b>Key:</b></td>
@@ -406,7 +379,7 @@ if(!empty($_FILES['gambar']['tmp_name'])) {
 			</tr>
 			<tr>
 				<td align=right><b>Chipertext Base64:</b></td>
-				<td align=left><textarea class='form-control'>$aesdecode</textarea></td>
+				<td align=left><textarea class='form-control'>$result</textarea></td>
 			</tr>
 			<tr>
 				<td align=right><b>Chipertext RC4:</b></td>
